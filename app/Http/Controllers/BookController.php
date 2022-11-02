@@ -14,7 +14,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        return Book::all();
     }
 
     /**
@@ -25,7 +25,15 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required']
+        ]);
+
+        $book = new Book;
+        $book->title = $request->input('title');
+        $book->save();
+
+        return $book;
     }
 
     /**
@@ -36,7 +44,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return $book;
     }
 
     /**
@@ -48,7 +56,14 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            'title' => ['required']
+        ]);
+
+        $book->title = $request->input('title');
+        $book->save();
+
+        return $book;
     }
 
     /**
@@ -59,6 +74,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return response()->noContent();
     }
 }
